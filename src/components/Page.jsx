@@ -1,15 +1,16 @@
 import React from "react";
-import { Layout as AntLayout } from "antd";
 import styled from "styled-components";
+import { Layout as AntLayout } from "antd";
+import GoogleMap from "./GoogleMap";
 
-const { Header: AntHeader, Content: AntContent, Footer: AntFooter } = AntLayout;
+const { Header: AntHeader, Content: AntContent } = AntLayout;
 
 const Logo = styled.h2`
-    color: #ffffff;
+  color: #ffffff;
 `;
 
 const Layout = styled(AntLayout)`
-    min-height: 100vh;
+  min-height: 100vh;
 `;
 
 export default function Page(props) {
@@ -19,14 +20,9 @@ export default function Page(props) {
         <Logo>Wikipedia Map</Logo>
       </AntHeader>
 
-      <AntContent style={{ padding: "0 50px" }}>
-        content
+      <AntContent>
+        <GoogleMap />
       </AntContent>
-
-      <AntFooter style={{ textAlign: "center" }}>
-        footer
-      </AntFooter>
     </Layout>
   );
 }
-
