@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import GoogleMapReact from "google-map-react";
-import { emit } from "./Mediator";
+import { emit } from "./mediator";
+import Marker from "./Marker";
+import { useMarkersStore } from "./store";
 
 const defaultPosition = {
   lat: 52.229913,
@@ -9,14 +11,16 @@ const defaultPosition = {
 };
 
 const Wrapper = styled.div`
-  height: 100vh;
+  height: 90vh;
   width: 100%;
 `;
 
-export default function GoogleMap(props) {
+export default function GoogleMap() {
   useEffect(() => {
-    emit("mapLoaded", defaultPosition);
+    emit("mapLoaded", { center: defaultPosition });
   }, []);
+
+  const [{ markers }] = useMarkersStore();
 
   return (
     <Wrapper>
@@ -24,8 +28,12 @@ export default function GoogleMap(props) {
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API }}
         defaultCenter={defaultPosition}
         defaultZoom={11}
-        onChange={(e) => emit("mapChanged", e.center)}
-      ></GoogleMapReact>
+        onChange={(e) => emit("mapChanged", e)}
+      >
+        {markers.map((marker, i) => (
+          <Marker lat={marker.lat} lng={marker.lng} key={i} />
+        ))}
+      </GoogleMapReact>
     </Wrapper>
   );
 }
