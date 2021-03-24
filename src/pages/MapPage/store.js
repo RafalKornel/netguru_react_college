@@ -2,7 +2,12 @@
 import { createStore, createHook } from "react-sweet-state";
 
 const Store = createStore({
-  initialState: { markers: [], googleApiLoaded: false },
+  initialState: {
+    markers: [],
+    googleApiLoaded: false,
+    isModalVisible: false,
+    articleUrl: null,
+  },
   actions: {
     addMarkers: (markers) => ({ setState, getState }) => {
       const existingMarkers = getState().markers;
@@ -18,8 +23,13 @@ const Store = createStore({
       setState({ markers });
     },
     setGoogleApiLoaded: (value) => ({ setState, getState }) => {
-      console.log(getState());
       setState({ googleApiLoaded: value });
+    },
+    setIsModalVisible: (value) => ({ setState, getState }) => {
+      setState({ isModalVisible: value });
+    },
+    setArticleUrl: (value) => ({ setState, getState }) => {
+      setState({ articleUrl: value });
     },
   },
 });

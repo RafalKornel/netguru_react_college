@@ -2,6 +2,7 @@ import wikipediaAPI from "../../services/api/wikipedia";
 import { useMarkersStore } from "../../pages/MapPage/store";
 
 const listeners = {};
+let map;
 
 export function emit(name, event) {
   listeners[name](event);
@@ -12,7 +13,10 @@ function addListener(name, listener) {
 }
 
 function useMediator() {
-  const [, { setMarkers, setGoogleApiLoaded }] = useMarkersStore();
+  const [
+    ,
+    { setMarkers, setGoogleApiLoaded, setIsModalVisible, setArticleUrl },
+  ] = useMarkersStore();
   function fetchArticles(e) {
     const { center: coord } = e;
 
@@ -24,12 +28,30 @@ function useMediator() {
       .catch((err) => console.error(err));
   }
 
-  function mapLoaded(e) {
+  function mapLoaded(mapInstance) {
+    map = mapInstance;
+
     setGoogleApiLoaded(true);
   }
 
+  function setMapCenter(location) {
+    map && map.setCenter(location);
+  }
+
+  function markerClicked({ pageId, title }) {
+    console.log(pageId);
+    wikipediaAPI
+      .getArticle({ title })
+      .then(({ query }) => query.pages[pageId])
+      .then((data) => setArticleUrl(data.fullurl))
+      .then(() => setIsModalVisible(true))
+      .catch((err) => console.error(err));
+  }
+
+  addListener("markerClicked", markerClicked);
   addListener("mapChanged", fetchArticles);
   addListener("mapLoaded", mapLoaded);
+  addListener("searchBoxPlaceSelected", setMapCenter);
 }
 
 export function Mediator() {

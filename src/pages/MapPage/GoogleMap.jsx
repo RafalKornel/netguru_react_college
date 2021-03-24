@@ -27,11 +27,17 @@ export default function GoogleMap() {
         }}
         defaultCenter={defaultPosition}
         defaultZoom={11}
-        onGoogleApiLoaded={() => emit("mapLoaded", { center: defaultPosition })}
+        onGoogleApiLoaded={(e) => emit("mapLoaded", e.map)}
         onChange={(e) => emit("mapChanged", e)}
       >
         {markers.map((marker, i) => (
-          <Marker lat={marker.lat} lng={marker.lng} key={i} />
+          <Marker
+            lat={marker.lat}
+            lng={marker.lng}
+            title={marker.title}
+            pageId={marker.pageid}
+            key={i}
+          />
         ))}
       </GoogleMapReact>
     </Wrapper>

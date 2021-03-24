@@ -22,6 +22,23 @@ function getArticles({ coord, radius = 10000, limit = 10 } = {}) {
     .json();
 }
 
-const api = { getArticles };
+function getArticle({ title }) {
+  const params = {
+    action: "query",
+    format: "json",
+    origin: "*",
+    prop: "info",
+    inprop: "url",
+    titles: title,
+  };
+
+  return ky
+    .get(`https://en.wikipedia.org/w/api.php?`, {
+      searchParams: { ...params },
+    })
+    .json();
+}
+
+const api = { getArticles, getArticle };
 
 export default api;

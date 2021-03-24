@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Layout as AntLayout, Input } from "antd";
 import styled from "styled-components";
 import { useMarkersStore } from "../pages/MapPage/store";
+import { emit } from "../pages/MapPage/mediator";
 
 const { Header: AntHeader } = AntLayout;
 
@@ -30,7 +31,15 @@ export default function Header() {
     if (googleApiLoaded) {
       const input = document.getElementById("search-box");
       const searchBox = new window.google.maps.places.Autocomplete(input);
-      console.log(searchBox);
+      searchBox.addListener("place_changed", () => {
+        const place = searchBox.getPlace();
+
+        const {
+          geometry: { location },
+        } = place;
+
+        emit("searchBoxPlaceSelected", location.toJSON());
+      });
     }
   }, [googleApiLoaded]);
 
