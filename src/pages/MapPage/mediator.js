@@ -12,7 +12,7 @@ function addListener(name, listener) {
 }
 
 function useMediator() {
-  const [, { setMarkers, addMarkers, setGoogleApiLoaded }] = useMarkersStore();
+  const [, { setMarkers, setGoogleApiLoaded }] = useMarkersStore();
   function fetchArticles(e) {
     const { center: coord } = e;
 

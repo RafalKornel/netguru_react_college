@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import GoogleMapReact from "google-map-react";
 import { emit } from "./mediator";
