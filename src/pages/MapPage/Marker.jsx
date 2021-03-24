@@ -22,7 +22,7 @@ const Circle = styled.div`
 export default function Marker({ title, pageId }) {
   return (
     <Tooltip title={title}>
-      <Circle onClick={() => emit("markerClicked", { title, pageId })} />
+      <Circle onClick={() => emit("markerClicked", { pageId })} />
     </Tooltip>
   );
 }

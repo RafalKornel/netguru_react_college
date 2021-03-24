@@ -3,15 +3,15 @@ import { Modal } from "antd";
 import { useMarkersStore } from "../pages/MapPage/store";
 import styled from "styled-components";
 
-const StyledModal = styled(Modal)`
-  position: absolute;
-  width: 70%;
-  height: 80%;
+// const StyledModal = styled(Modal)`
+//   position: absolute;
+//   width: 70%;
+//   height: 80%;
 
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-`;
+//   left: 50%;
+//   top: 50%;
+//   transform: translate(-50%, -50%);
+// `;
 
 const Iframe = styled.iframe`
   border: none;

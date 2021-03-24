@@ -22,14 +22,14 @@ function getArticles({ coord, radius = 10000, limit = 10 } = {}) {
     .json();
 }
 
-function getArticle({ title }) {
+function getArticle({ pageId }) {
   const params = {
     action: "query",
     format: "json",
     origin: "*",
     prop: "info",
     inprop: "url",
-    titles: title,
+    pageids: pageId,
   };
 
   return ky

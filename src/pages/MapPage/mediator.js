@@ -38,10 +38,10 @@ function useMediator() {
     map && map.setCenter(location);
   }
 
-  function markerClicked({ pageId, title }) {
+  function markerClicked({ pageId }) {
     console.log(pageId);
     wikipediaAPI
-      .getArticle({ title })
+      .getArticle({ pageId })
       .then(({ query }) => query.pages[pageId])
       .then((data) => setArticleUrl(data.fullurl))
       .then(() => setIsModalVisible(true))
