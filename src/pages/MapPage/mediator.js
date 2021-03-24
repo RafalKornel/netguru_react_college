@@ -12,7 +12,7 @@ function addListener(name, listener) {
 }
 
 function useMediator() {
-  const [, { setMarkers, addMarkers }] = useMarkersStore();
+  const [, { setMarkers, addMarkers, setGoogleApiLoaded }] = useMarkersStore();
   function fetchArticles(e) {
     const { center: coord } = e;
 
@@ -24,8 +24,12 @@ function useMediator() {
       .catch((err) => console.error(err));
   }
 
+  function mapLoaded(e) {
+    setGoogleApiLoaded(true);
+  }
+
   addListener("mapChanged", fetchArticles);
-  addListener("mapLoaded", fetchArticles);
+  addListener("mapLoaded", mapLoaded);
 }
 
 export function Mediator() {

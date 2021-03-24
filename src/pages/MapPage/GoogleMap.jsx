@@ -16,18 +16,18 @@ const Wrapper = styled.div`
 `;
 
 export default function GoogleMap() {
-  useEffect(() => {
-    emit("mapLoaded", { center: defaultPosition });
-  }, []);
-
   const [{ markers }] = useMarkersStore();
 
   return (
     <Wrapper>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API }}
+        bootstrapURLKeys={{
+          key: process.env.REACT_APP_GOOGLE_MAPS_API,
+          libraries: ["places"],
+        }}
         defaultCenter={defaultPosition}
         defaultZoom={11}
+        onGoogleApiLoaded={() => emit("mapLoaded", { center: defaultPosition })}
         onChange={(e) => emit("mapChanged", e)}
       >
         {markers.map((marker, i) => (

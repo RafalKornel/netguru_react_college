@@ -3,12 +3,9 @@ import React from "react";
 import styled from "styled-components";
 import { Layout as AntLayout } from "antd";
 import MapPage from "./pages/MapPage";
+import Header from "./components/Header";
 
-const { Header: AntHeader, Content: AntContent } = AntLayout;
-
-const Logo = styled.h2`
-  color: #ffffff;
-`;
+const { Content: AntContent } = AntLayout;
 
 const Layout = styled(AntLayout)`
   min-height: 100vh;
@@ -17,10 +14,7 @@ const Layout = styled(AntLayout)`
 export default function App(props) {
   return (
     <Layout className="layout">
-      <AntHeader>
-        <Logo>Wikipedia Map</Logo>
-      </AntHeader>
-
+      <Header />
       <AntContent>
         <MapPage />
       </AntContent>

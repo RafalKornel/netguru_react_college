@@ -2,7 +2,7 @@
 import { createStore, createHook } from "react-sweet-state";
 
 const Store = createStore({
-  initialState: { markers: [] },
+  initialState: { markers: [], googleApiLoaded: false },
   actions: {
     addMarkers: (markers) => ({ setState, getState }) => {
       const existingMarkers = getState().markers;
@@ -16,6 +16,10 @@ const Store = createStore({
     },
     setMarkers: (markers) => ({ setState }) => {
       setState({ markers });
+    },
+    setGoogleApiLoaded: (value) => ({ setState, getState }) => {
+      console.log(getState());
+      setState({ googleApiLoaded: value });
     },
   },
 });
